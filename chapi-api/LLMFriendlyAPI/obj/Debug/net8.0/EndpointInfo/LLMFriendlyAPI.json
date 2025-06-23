@@ -1,0 +1,579 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "TaskManager API",
+    "description": "A simple API for managing tasks",
+    "contact": {
+      "name": "Your Name",
+      "email": "you@example.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Tasks": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Get all tasks",
+        "operationId": "GetAllTasks",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Create a new task",
+        "operationId": "CreateTask",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskRequest"
+              },
+              "example": {"title":"Submit Report","description":"Compile and submit the Q2 performance report to management.","dueDate":"2025-06-20T09:21:37.4236976Z"}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDto"
+                },
+                "example": {"id":101,"title":"Fix login issue","description":"Resolve the intermittent 500 error during user login.","dueDate":"2025-06-16T09:21:37.4465002Z","isCompleted":false}
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Tasks/{id}": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Get task by ID",
+        "operationId": "GetTaskById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDto"
+                },
+                "example": {"id":101,"title":"Fix login issue","description":"Resolve the intermittent 500 error during user login.","dueDate":"2025-06-16T09:21:37.4533538Z","isCompleted":false}
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Update an existing task",
+        "operationId": "UpdateTask",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskDto"
+              },
+              "example": {"id":101,"title":"Fix login issue","description":"Resolve the intermittent 500 error during user login.","dueDate":"2025-06-16T09:21:37.4552764Z","isCompleted":false}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Delete a task",
+        "operationId": "DeleteTask",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Tasks/{id}/comments": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Add comment to task",
+        "operationId": "AddCommentToTask",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCommentRequest"
+              },
+              "example": {"content":"Please update this task to high priority. Client is waiting."}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskComment"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Tasks/{id}/status": {
+      "put": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Update task status",
+        "operationId": "UpdateTaskStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskStatusUpdateRequest"
+              },
+              "example": {"newStatus":2,"reason":"QA approved and merged to main branch."}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Tasks/search": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Search tasks by filters",
+        "operationId": "SearchTasks",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assignedTo",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dueBefore",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddCommentRequest": {
+        "required": [
+          "content"
+        ],
+        "type": "object",
+        "properties": {
+          "content": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The textual content of the comment.      <example>This task is urgent and needs to be finished today.</example>"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateTaskRequest": {
+        "required": [
+          "description",
+          "dueDate",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The short title of the task.      <example>Submit report</example>"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Detailed description of the task.      <example>Submit the final Q2 report to the finance department</example>"
+          },
+          "dueDate": {
+            "type": "string",
+            "description": "The due date of the task.      <example>2025-06-30T17:00:00Z</example>",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isCompleted": {
+            "type": "boolean"
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskComment"
+            },
+            "nullable": true
+          },
+          "statusLogs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskStatusLog"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskComment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "taskId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "task": {
+            "$ref": "#/components/schemas/Task"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskDto": {
+        "required": [
+          "description",
+          "dueDate",
+          "id",
+          "isCompleted",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the task.      <example>101</example>",
+            "format": "int32"
+          },
+          "title": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Title of the task.      <example>Fix login bug</example>"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Description of what the task involves.      <example>Resolve the issue where login returns 500 error.</example>"
+          },
+          "dueDate": {
+            "type": "string",
+            "description": "Date and time by which the task is due.      <example>2025-07-01T12:00:00Z</example>",
+            "format": "date-time"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "Whether the task has been marked as completed.      <example>true</example>"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskStatus": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "TaskStatusLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "taskId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "task": {
+            "$ref": "#/components/schemas/Task"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskStatusUpdateRequest": {
+        "required": [
+          "newStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "newStatus": {
+            "$ref": "#/components/schemas/TaskStatus"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Optional reason for status change.      <example>Final review done. QA approved.</example>",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

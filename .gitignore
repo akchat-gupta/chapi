@@ -1,0 +1,51 @@
+# Central .gitignore for Chapi Monorepo
+
+########################
+# .NET 8 Web API (chapi-api)
+########################
+chapi-api/bin/
+chapi-api/obj/
+chapi-api/*.user
+chapi-api/*.suo
+chapi-api/*.userosscache
+chapi-api/*.sln.docstates
+chapi-api/.vs/
+chapi-api/.vscode/
+chapi-api/*.log
+
+# Visual Studio for Mac
+chapi-api/.vscode/
+chapi-api/*.pidb
+chapi-api/*.userprefs
+
+# ASP.NET secrets
+chapi-api/appsettings.*.json
+chapi-api/secrets.json
+
+########################
+# React Frontend (chapi-ui)
+########################
+chapi-ui/node_modules/
+chapi-ui/.env
+chapi-ui/.env.*.local
+chapi-ui/build/
+chapi-ui/dist/
+chapi-ui/.DS_Store
+chapi-ui/.npm/
+chapi-ui/.yarn/
+chapi-ui/.turbo/
+
+########################
+# OS + Tooling
+########################
+*.swp
+*.tmp
+*.log
+*.bak
+*.orig
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
