@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>chapi-api</name>
+    </assembly>
+    <members>
+        <member name="M:Controllers.TasksController.GetAllTasks">
+            <summary>Retrieve all tasks in the system.</summary>
+        </member>
+        <member name="M:Controllers.TasksController.GetTaskById(System.Int32)">
+            <summary>Fetch a specific task by its unique identifier.</summary>
+        </member>
+        <member name="M:Controllers.TasksController.CreateTask(DTOs.CreateTaskRequest)">
+            <summary>Create a new task with title, description, and due date.</summary>
+        </member>
+        <member name="M:Controllers.TasksController.UpdateTask(System.Int32,DTOs.TaskDto)">
+            <summary>Update the fields of an existing task by ID.</summary>
+        </member>
+        <member name="M:Controllers.TasksController.DeleteTask(System.Int32)">
+            <summary>Remove a task by its identifier.</summary>
+        </member>
+        <member name="M:Controllers.TasksController.AddCommentToTask(System.Int32,DTOs.AddCommentRequest)">
+            <summary>Add a comment to a specific task.</summary>
+        </member>
+        <member name="M:Controllers.TasksController.UpdateTaskStatus(System.Int32,DTOs.TaskStatusUpdateRequest)">
+            <summary>Update the status of a task (e.g., mark as Completed or In Progress).</summary>
+        </member>
+        <member name="M:Controllers.TasksController.SearchTasks(System.String,System.String,System.Nullable{System.DateTime})">
+            <summary>Search for tasks based on optional filters like status and due date.</summary>
+        </member>
+        <member name="T:DTOs.AddCommentRequest">
+            <summary>
+            DTO for adding a comment to a task.
+            </summary>
+        </member>
+        <member name="P:DTOs.AddCommentRequest.Content">
+            <summary>
+            The textual content of the comment.
+            <example>This task is urgent and needs to be finished today.</example>
+            </summary>
+        </member>
+        <member name="T:DTOs.CreateTaskRequest">
+            <summary>
+            DTO to create a new task with title, description, and due date.
+            </summary>
+        </member>
+        <member name="P:DTOs.CreateTaskRequest.Title">
+            <summary>
+            The short title of the task.
+            <example>Submit report</example>
+            </summary>
+        </member>
+        <member name="P:DTOs.CreateTaskRequest.Description">
+            <summary>
+            Detailed description of the task.
+            <example>Submit the final Q2 report to the finance department</example>
+            </summary>
+        </member>
+        <member name="P:DTOs.CreateTaskRequest.DueDate">
+            <summary>
+            The due date of the task.
+            <example>2025-06-30T17:00:00Z</example>
+            </summary>
+        </member>
+        <member name="T:DTOs.TaskDto">
+            <summary>
+            DTO representing a task's current state.
+            </summary>
+        </member>
+        <member name="P:DTOs.TaskDto.Id">
+            <summary>
+            Unique identifier for the task.
+            <example>101</example>
+            </summary>
+        </member>
+        <member name="P:DTOs.TaskDto.Title">
+            <summary>
+            Title of the task.
+            <example>Fix login bug</example>
+            </summary>
+        </member>
+        <member name="P:DTOs.TaskDto.Description">
+            <summary>
+            Description of what the task involves.
+            <example>Resolve the issue where login returns 500 error.</example>
+            </summary>
+        </member>
+        <member name="P:DTOs.TaskDto.DueDate">
+            <summary>
+            Date and time by which the task is due.
+            <example>2025-07-01T12:00:00Z</example>
+            </summary>
+        </member>
+        <member name="P:DTOs.TaskDto.IsCompleted">
+            <summary>
+            Whether the task has been marked as completed.
+            <example>true</example>
+            </summary>
+        </member>
+        <member name="T:DTOs.TaskStatusUpdateRequest">
+            <summary>
+            DTO to update the status of a task.
+            </summary>
+        </member>
+        <member name="P:DTOs.TaskStatusUpdateRequest.NewStatus">
+            <summary>
+            The new status to apply to the task.
+            <example>Completed</example>
+            </summary>
+        </member>
+        <member name="P:DTOs.TaskStatusUpdateRequest.Reason">
+            <summary>
+            Optional reason for status change.
+            <example>Final review done. QA approved.</example>
+            </summary>
+        </member>
+        <member name="T:Chapi.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:Chapi.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Chapi.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Chapi.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Chapi.Migrations.UpdateSchema">
+            <inheritdoc />
+        </member>
+        <member name="M:Chapi.Migrations.UpdateSchema.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Chapi.Migrations.UpdateSchema.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Chapi.Migrations.UpdateSchema.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
